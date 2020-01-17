@@ -34,23 +34,23 @@
 
 		startStopBtn.innerText = "Stop";
 		fibsList.innerHTML = "";
-
-		worker = new Worker("/js/worker.js");
+		worker=new Worker("/js/worker.js");
 		worker.addEventListener("message",onMessage);
-		worker.postMessage({ start: true });
+		worker.postMessage("Start Fibonacci generation");
 	}
 
 	function stopFibs() {
 		startStopBtn.removeEventListener("click",stopFibs,false);
 		startStopBtn.addEventListener("click",startFibs,false);
-
-		startStopBtn.innerText = "Start";
+		startStopBtn.innerText="Start";
 		worker.terminate();
-		worker = null;
+	    
 	}
 
 	function onMessage(evt) {
-		renderFib(evt.data.num,evt.data.fib);
+		// console.log(evt.data);
+		// worker.postMessage("Hello From Client")
+		renderFib(evt.data.idx,evt.data.fib);
 	}
 
 })();
